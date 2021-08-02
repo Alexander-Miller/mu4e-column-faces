@@ -105,7 +105,7 @@
   :group 'mu4e-column-faces)
 
 (defun mu4e-column-faces--header-handler (msg &optional point)
-  "Entry point for `mu4e-column-faces-mode'.
+  "Entry point for the mu4e overrides.
 Overrides `mu4e~headers-header-handler' out of necessity because all the
 functions that actually do need changing are inlined.
 
