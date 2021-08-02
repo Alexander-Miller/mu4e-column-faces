@@ -3,7 +3,7 @@
 ;; Copyright (C) 2021 Alexander Miller
 
 ;; Author: Alexander Miller <alexanderm@web.de>
-;; Package-Requires: ((emacs "25.3") (mu4e "1.6.0"))
+;; Package-Requires: ((emacs "25.3"))
 ;; Homepage: https://github.com/Alexander-Miller/mu4e-column-faces
 ;; Version: 1.0
 
