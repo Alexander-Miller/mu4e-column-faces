@@ -1,0 +1,44 @@
+# -*- fill-column: 120 org-list-indent-offset: 1 -*-
+#+STARTUP: noinlineimages
+
+
+* Mu4e Column faces
+
+This package provides a minor mode that allows using individual faces for the columns in mu4e's email overview.
+
+** Example
+
+/Before:/
+[[file:img/before.png]]
+
+/After:/
+[[file:img/after.png]]
+
+/Before:/
+[[file:img/before-light.png]]
+
+/After:/
+[[file:img/after-light.png]]
+
+
+** Installation
+
+Simply enable ~mu4e-column-faces-mode~ after mu4e was loaded:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package mu4e-column-faces
+    :after mu4e
+    :config (mu4e-column-faces-mode))
+#+END_SRC
+
+or
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'mu4e
+    (mu4e-column-faces-mode))
+#+END_SRC
+
+** Configuration
+
+The various faces are all named after the headers in ~mu4e-header-info~, e.g. ~mu4e-column-faces-date~. Other than these
+faces there is nothing else to configure.
