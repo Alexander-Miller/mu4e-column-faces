@@ -20,7 +20,6 @@ This package provides a minor mode that allows using individual faces for the co
 /After:/
 [[file:img/after-light.png]]
 
-
 ** Installation
 
 Simply enable ~mu4e-column-faces-mode~ after mu4e was loaded:
@@ -42,3 +41,6 @@ or
 
 The various faces are all named after the headers in ~mu4e-header-info~, e.g. ~mu4e-column-faces-date~. Other than these
 faces there is nothing else to configure.
+
+This package does not seem to have an impact on performance. If you want to make sure for your own setup you can set
+~mu4e-headers-report-render-time~ to ~t~ and compare the render times with and without ~mu4e-column-faces-mode~.
