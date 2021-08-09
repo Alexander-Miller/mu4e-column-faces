@@ -1,4 +1,4 @@
-;;; mu4e-column-faces.el --- Faces for individual mu4e coluns -*- lexical-binding: t -*-
+;;; mu4e-column-faces.el --- Faces for individual mu4e columns -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021 Alexander Miller
 
