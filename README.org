@@ -1,7 +1,6 @@
 # -*- fill-column: 120 org-list-indent-offset: 1 -*-
 #+STARTUP: noinlineimages
 
-
 * Mu4e Column faces
 
 This package provides a minor mode that allows using individual faces for the columns in mu4e's email overview.
@@ -22,7 +21,8 @@ This package provides a minor mode that allows using individual faces for the co
 
 ** Installation
 
-Simply enable ~mu4e-column-faces-mode~ after mu4e was loaded:
+mu4e-column-faces is available on Melpa. Download it with the package manager of your choice and then simply enable
+~mu4e-column-faces-mode~ after mu4e was loaded:
 
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e-column-faces
