@@ -5,7 +5,7 @@
 ;; Author: Alexander Miller <alexanderm@web.de>
 ;; Package-Requires: ((emacs "25.3"))
 ;; Homepage: https://github.com/Alexander-Miller/mu4e-column-faces
-;; Version: 1.0
+;; Version: 1.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@
 
 (defface mu4e-column-faces-to-from
   '((t :inherit font-lock-variable-name-face))
-  "Face for `:to', `:from', `:cc' and `:bcc' columns."
+  "Face for `:from-or-to', `:to', `:from', `:cc' and `:bcc' columns."
   :group 'mu4e-column-faces)
 
 (defface mu4e-column-faces-date
@@ -161,7 +161,8 @@ the message flags in included in `mu4e-column-faces--apply-face'."
            ((memq 'replied flags) 'mu4e-replied-face)
            ((memq 'passed flags)  'mu4e-forwarded-face)
            (t                     'mu4e-header-face)) ))
-       (:from-or-to           (mu4e~headers-from-or-to ,msg))
+       ((:to :from :cc :bcc :from-or-to)
+        'mu4e-column-faces-to-from)
        (:attachments          'mu4e-column-faces-attachments)
        (:message-id           'mu4e-column-faces-message-id)
        (:thread-subject       'mu4e-column-faces-thread-subject)
@@ -173,8 +174,7 @@ the message flags in included in `mu4e-column-faces--apply-face'."
        (:user-agent           'mu4e-column-faces-user-agent)
        ((:list :mailing-list) 'mu4e-column-faces-mailing-list)
        ((:date :human-date)   'mu4e-column-faces-date)
-       ((:maildir :path)      'mu4e-column-faces-maildir)
-       ((:to :from :cc :bcc)  'mu4e-column-faces-to-from)))))
+       ((:maildir :path)      'mu4e-column-faces-maildir)))))
 
 ;;;###autoload
 (define-minor-mode mu4e-column-faces-mode
