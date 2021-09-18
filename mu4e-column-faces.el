@@ -104,6 +104,14 @@
   "Face for `:user-agent' columns."
   :group 'mu4e-column-faces)
 
+(defcustom mu4e-column-faces-custom-column-handler nil
+  "Function to optionally handle custom columns.
+
+Value must be a function that takes two arguments:
+- the column
+- the mu4e message object"
+  :group 'mu4e-column-faces)
+
 (defun mu4e-column-faces--header-handler (msg &optional point)
   "Entry point for the mu4e overrides.
 Overrides `mu4e~headers-header-handler' out of necessity because all the
@@ -174,7 +182,10 @@ the message flags in included in `mu4e-column-faces--apply-face'."
        (:user-agent           'mu4e-column-faces-user-agent)
        ((:list :mailing-list) 'mu4e-column-faces-mailing-list)
        ((:date :human-date)   'mu4e-column-faces-date)
-       ((:maildir :path)      'mu4e-column-faces-maildir)))))
+       ((:maildir :path)      'mu4e-column-faces-maildir)
+       (t (if mu4e-column-faces-custom-column-handler
+              (funcall mu4e-column-faces-custom-column-handler
+                       ,column ,msg)))))))
 
 ;;;###autoload
 (define-minor-mode mu4e-column-faces-mode
