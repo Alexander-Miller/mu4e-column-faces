@@ -112,6 +112,17 @@ Value must be a function that takes two arguments:
 - the mu4e message object"
   :group 'mu4e-column-faces)
 
+(defcustom mu4e-column-faces-adjust-face nil
+  "Function to optionally further adjust mu4e's column faces.
+Can for example be used to assign different faces to different email accounts.
+
+Value must be a function that takes 2 arguments:
+- the so far assigned face
+- the column
+- the column's value
+- the mu4e message object"
+  :group 'mu4e-column-faces)
+
 (defun mu4e-column-faces--header-handler (msg &optional point)
   "Entry point for the mu4e overrides.
 Overrides `mu4e~headers-header-handler' out of necessity because all the
@@ -146,8 +157,11 @@ the message flags in included in `mu4e-column-faces--apply-face'."
      (let* ((field (car ,f-w))
             (width (cdr ,f-w))
             (val (mu4e~headers-field-value ,msg field))
-            (val (if width (mu4e~headers-truncate-field field val width) val))
-            (face (mu4e-column-faces--determine-face (car ,f-w) ,msg)))
+            (face (mu4e-column-faces--determine-face field ,msg))
+            (face (if (and face mu4e-column-faces-adjust-face)
+                      (funcall mu4e-column-faces-adjust-face face field val ,msg)
+                    face))
+            (val (if width (mu4e~headers-truncate-field field val width) val)))
        (when face
          (put-text-property 0 (length val) 'face face val))
        val))))
