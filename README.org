@@ -39,8 +39,12 @@ or
 
 ** Configuration
 
-The various faces are all named after the headers in ~mu4e-header-info~, e.g. ~mu4e-column-faces-date~. Other than these
-faces there is nothing else to configure.
+The various faces are all named after the headers in ~mu4e-header-info~, e.g. ~mu4e-column-faces-date~.
+
+There are two options that can be set:
+
+- ~mu4e-column-faces-custom-column-handler~ is function that can be used to handle custom columns.
+- ~mu4e-column-faces-adjust-face~ is a function that can be used to further customize columns' faces.
 
 This package does not seem to have an impact on performance. If you want to make sure for your own setup you can set
 ~mu4e-headers-report-render-time~ to ~t~ and compare the render times with and without ~mu4e-column-faces-mode~.
