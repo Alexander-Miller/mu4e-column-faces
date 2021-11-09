@@ -5,7 +5,7 @@
 ;; Author: Alexander Miller <alexanderm@web.de>
 ;; Package-Requires: ((emacs "25.3"))
 ;; Homepage: https://github.com/Alexander-Miller/mu4e-column-faces
-;; Version: 1.1
+;; Version: 1.2
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -123,9 +123,9 @@ Value must be a function that takes 2 arguments:
 - the mu4e message object"
   :group 'mu4e-column-faces)
 
-(defun mu4e-column-faces--header-handler (msg &optional point)
+(defun mu4e-column-faces-~headers-append-handler (msglst)
   "Entry point for the mu4e overrides.
-Overrides `mu4e~headers-header-handler' out of necessity because all the
+Overrides `mu4e~headers-append-handler' out of necessity because all the
 functions that actually do need changing are inlined.
 
 The only change is for MSG to be passed to
@@ -133,10 +133,26 @@ The only change is for MSG to be passed to
 POINT remains untouched."
   (when (buffer-live-p (mu4e-get-headers-buffer))
     (with-current-buffer (mu4e-get-headers-buffer)
-      (let ((line (mu4e-column-faces--msg-header-line msg)))
-        (when line
-          (mu4e~headers-add-header line (mu4e-message-field msg :docid)
-                                   point msg))))))
+      (save-excursion
+	    (let ((inhibit-read-only t))
+	      (seq-do
+	       (lambda (msg)
+	         (mu4e~headers-insert-header msg (point-max)))
+	       msglst))))))
+
+(define-inline mu4e~headers-insert-header (msg pos)
+  "Insert a header for MSG at point POS."
+  (inline-letevals (msg post)
+    (inline-quote
+     (when-let ((line (mu4e-column-faces--msg-header-line ,msg))
+	            (docid (plist-get ,msg :docid)))
+       (goto-char ,pos)
+       (insert
+        (propertize
+         (concat
+          (mu4e~headers-docid-cookie docid)
+          mu4e~mark-fringe line "\n")
+         'docid docid 'msg ,msg))))))
 
 (define-inline mu4e-column-faces--msg-header-line (msg)
   "Create a propertized header for the given MSG.
@@ -206,21 +222,21 @@ the message flags in included in `mu4e-column-faces--apply-face'."
   "Global minor mode for individual column faces in mu4e's email overview.
 The view must be refreshed with `mu4e-headers-rerun-search' for the changes to
 take effect.
-Requires at least mu4e v1.6.0."
+Requires at least mu4e v1.7.0."
   :init-value nil
   :global     t
   :lighter    nil
   :group      'mu4e-column-faces
   (if mu4e-column-faces-mode
       (progn
-        (unless (version<= "1.6.0" mu4e-mu-version)
+        (unless (version<= "1.7.0" mu4e-mu-version)
           (user-error
-           "Mu4e-column-faces-mode requires at least mu4e 1.6.0, current version is %s"
+           "Mu4e-column-faces-mode requires at least mu4e 1.7.0, current version is %s"
            mu4e-mu-version))
-        (advice-add #'mu4e~headers-header-handler
-                    :override #'mu4e-column-faces--header-handler))
-    (advice-remove #'mu4e~headers-header-handler
-                   #'mu4e-column-faces--header-handler)))
+        (advice-add #'mu4e~headers-append-handler
+                      :override #'mu4e-column-faces-~headers-append-handler))
+    (advice-remove #'mu4e~headers-append-handler
+                     #'mu4e-column-faces-~headers-append-handler)))
 
 (provide 'mu4e-column-faces)
 
