@@ -142,7 +142,7 @@ POINT remains untouched."
 
 (define-inline mu4e~headers-insert-header (msg pos)
   "Insert a header for MSG at point POS."
-  (inline-letevals (msg post)
+  (inline-letevals (msg pos)
     (inline-quote
      (when-let ((line (mu4e-column-faces--msg-header-line ,msg))
 	            (docid (plist-get ,msg :docid)))
