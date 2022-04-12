@@ -151,7 +151,7 @@ POINT remains untouched."
         (propertize
          (concat
           (mu4e~headers-docid-cookie docid)
-          mu4e~mark-fringe line "\n")
+          mu4e--mark-fringe line "\n")
          'docid docid 'msg ,msg))))))
 
 (define-inline mu4e-column-faces--msg-header-line (msg)
