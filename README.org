@@ -41,7 +41,7 @@ or
 
 The various faces are all named after the headers in ~mu4e-header-info~, e.g. ~mu4e-column-faces-date~.
 
-There are two options that can be set:
+There are two options that can be set (examples on how to use them are provided in their eldoc):
 
 - ~mu4e-column-faces-custom-column-handler~ is function that can be used to handle custom columns.
 - ~mu4e-column-faces-adjust-face~ is a function that can be used to further customize columns' faces.
