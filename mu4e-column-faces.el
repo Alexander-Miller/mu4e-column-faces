@@ -5,7 +5,7 @@
 ;; Author: Alexander Miller <alexanderm@web.de>
 ;; Package-Requires: ((emacs "25.3"))
 ;; Homepage: https://github.com/Alexander-Miller/mu4e-column-faces
-;; Version: 1.2
+;; Version: 1.2.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -94,7 +94,7 @@
   "Face for `:size' columns."
   :group 'mu4e-column-faces)
 
-(defface mu4e-column-faces-thead-subject
+(defface mu4e-column-faces-thread-subject
   '((t :inherit font-lock-type-face))
   "Face for `:thread-subject' columns."
   :group 'mu4e-column-faces)
