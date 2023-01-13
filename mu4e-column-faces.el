@@ -324,8 +324,8 @@ Requires at least mu4e v1.8.0."
                     :override #'mu4e-column-faces--update-handler))
     (advice-remove #'mu4e~headers-append-handler
                    #'mu4e-column-faces-~headers-append-handler)
-    (advice-add #'mu4e~headers-update-handler
-                #'mu4e-column-faces--update-handler)))
+    (advice-remove #'mu4e~headers-update-handler
+                   #'mu4e-column-faces--update-handler)))
 
 (provide 'mu4e-column-faces)
 
