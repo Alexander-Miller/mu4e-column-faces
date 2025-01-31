@@ -288,7 +288,17 @@ the message flags in included in `mu4e-column-faces--apply-face'."
         'mu4e-column-faces-to-from)
        (:attachments          'mu4e-column-faces-attachments)
        (:message-id           'mu4e-column-faces-message-id)
-       (:thread-subject       'mu4e-column-faces-thread-subject)
+       (:thread-subject
+        (let ((flags (mu4e-message-field ,msg :flags)))
+          (cond
+           ((memq 'trashed flags) 'mu4e-trashed-face)
+           ((memq 'draft flags)   'mu4e-draft-face)
+           ((or (memq 'unread flags) (memq 'new flags))
+            'mu4e-unread-face)
+           ((memq 'flagged flags) 'mu4e-flagged-face)
+           ((memq 'replied flags) 'mu4e-replied-face)
+           ((memq 'passed flags)  'mu4e-forwarded-face)
+           (t                     'mu4e-header-face)) ))
        (:flags                'mu4e-column-faces-flags)
        (:tags                 'mu4e-column-faces-tags)
        (:size                 'mu4e-column-faces-size)
